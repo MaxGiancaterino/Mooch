@@ -1,0 +1,9 @@
+endpoint: https://eu1.prisma.sh/h_kim-96a1f0/mooch/dev
+datamodel: datamodel.graphql
+hooks:
+  post-deploy:
+    - graphql get-schema -p database
+    - graphql prepare
+    - graphql codegen
+
+
