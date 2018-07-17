@@ -2,7 +2,7 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://hi-jea.mgiancaterino.client.exp.direct",
   "packagerNgrokUrl": "https://packager.hi-jea.mgiancaterino.client.exp.direct",
-  "ngrokPid": 17504,
+  "ngrokPid": 13596,
   "packagerPort": 19001,
-  "packagerPid": 12148
+  "packagerPid": 25620
 }

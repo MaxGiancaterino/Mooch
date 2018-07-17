@@ -8,7 +8,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import AppNavigator from "./navigation/AppNavigator";
 
-const httpLink = new HttpLink({ uri: "http://localhost:4000" });
+const httpLink = new HttpLink({ uri: "http://10.0.20.33:4000" });
 
 const client = new ApolloClient({
   link: ApolloLink.from([httpLink]),

@@ -16,33 +16,40 @@ import {
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
-const LOGIN = gql`
-  mutation login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+const SIGN_UP = gql`
+  mutation signup($email: String!, $password: String!, $name: String!) {
+    signup(email: $email, password: $password, name: $name) {
       token
-      user {
-        id
-      }
     }
   }
 `;
 
 export default class SignInScreen extends React.Component {
   static navigationOptions = {
-    title: "Please sign in"
+    title: "Please sign up"
   };
   state = {
+    name: "",
     email: "",
     password: "",
     error: ""
   };
   render() {
     return (
-      <Mutation mutation={LOGIN}>
-        {login => {
+      <Mutation mutation={SIGN_UP}>
+        {signup => {
           return (
             <View style={styles.container}>
               <Text style={styles.errorText}>{this.state.error}</Text>
+
+              <FormLabel>Full name</FormLabel>
+              <FormInput
+                value={this.state.name}
+                onChangeText={text => {
+                  this.setState({ name: text });
+                }}
+              />
+
               <FormLabel>Email</FormLabel>
               <FormInput
                 value={this.state.email}
@@ -61,12 +68,8 @@ export default class SignInScreen extends React.Component {
               />
 
               <Button
-                title="Sign in!"
-                onPress={() => this._signInAsync(login)}
-              />
-              <Button
                 title="Sign up!"
-                onPress={() => this.props.navigation.navigate("SignUp")}
+                onPress={() => this._signUpAsync(signup)}
               />
             </View>
           );
@@ -75,21 +78,27 @@ export default class SignInScreen extends React.Component {
     );
   }
 
-  _signInAsync = async login => {
+  _signUpAsync = async signup => {
     this.setState({ error: "" });
     try {
-      const { data } = await login({
+      const { data } = await signup({
         variables: {
+          name: this.state.name,
           email: this.state.email,
           password: this.state.password
         }
       });
-      this.setState({ email: "", password: "" });
-      await AsyncStorage.setItem("userToken", data.login.token);
+      this.setState({ name: "", email: "", password: "" });
+      await AsyncStorage.setItem("userToken", data.signup.token);
       this.props.navigation.navigate("App");
     } catch (e) {
       console.log(e);
-      this.setState({ email: "", password: "", error: "Invalid sign in credentials" });
+      this.setState({
+        name: "",
+        email: "",
+        password: "",
+        error: "Invalid sign up credentials"
+      });
     }
   };
 }
@@ -101,6 +110,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   errorText: {
-      textAlign: "center",
+    textAlign: "center"
   }
 });
