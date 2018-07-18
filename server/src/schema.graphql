@@ -12,6 +12,7 @@ type Query {
     last: Int
   ): [User!]!
   groups: [Group!]!
+  group(where: GroupWhereUniqueInput!): Group!
 }
 
 type Mutation {

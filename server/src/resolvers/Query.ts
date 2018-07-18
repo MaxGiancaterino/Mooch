@@ -12,5 +12,8 @@ export default {
   groups: async (parent, args, ctx: Context, info) => {
     const id = getUserId(ctx)
     return await ctx.db.query.groups({ where: { members_some: { id } } }, info)
+  },
+  group: async (parent, args, ctx: Context, info) => {
+    return await ctx.db.query.group(args, info)
   }
 }

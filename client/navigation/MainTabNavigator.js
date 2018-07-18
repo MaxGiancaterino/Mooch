@@ -10,6 +10,7 @@ import HomeScreen from "../screens/HomeScreen";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import GroupsScreen from "../screens/GroupsScreen";
+import ViewGroupScreen from "../screens/ViewGroupScreen";
 import ModalCreateGroup from "../screens/ModalCreateGroup";
 
 const HomeStack = createStackNavigator({
@@ -31,7 +32,8 @@ HomeStack.navigationOptions = {
 };
 
 const GroupsStack = createStackNavigator({
-  Groups: GroupsScreen
+  Groups: GroupsScreen,
+  Group: ViewGroupScreen
 });
 
 const LinksStack = createStackNavigator({

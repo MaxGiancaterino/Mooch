@@ -10,6 +10,7 @@ import {
   AsyncStorage,
   View
 } from "react-native";
+import Group from "../components/Group";
 
 import { EvilIcons } from "@expo/vector-icons";
 import gql from "graphql-tag";
@@ -63,9 +64,12 @@ export default class GroupsScreen extends React.Component {
             if (!data.groups) return <Text>"no users"</Text>;
             return data.groups.map(group => {
               return (
-                <View>
-                  <Text>{group.name}</Text>
-                </View>
+                <Group
+                  key={group.id}
+                  name={group.name}
+                  id={group.id}
+                  navigation={this.props.navigation}
+                />
               );
             });
           }}
