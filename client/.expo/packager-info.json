@@ -1,8 +1,1 @@
-{
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://hi-jea.mgiancaterino.client.exp.direct",
-  "packagerNgrokUrl": "https://packager.hi-jea.mgiancaterino.client.exp.direct",
-  "ngrokPid": 12664,
-  "packagerPort": 19001,
-  "packagerPid": 26484
-}
+{}

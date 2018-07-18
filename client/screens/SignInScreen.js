@@ -1,12 +1,11 @@
 import React from "react";
 import {
   Button,
-  ActivityIndicator,
   AsyncStorage,
-  StatusBar,
   StyleSheet,
   View,
-  Text
+  Text,
+  TouchableOpacity
 } from "react-native";
 import {
   FormLabel,
@@ -41,7 +40,8 @@ export default class SignInScreen extends React.Component {
       <Mutation mutation={LOGIN}>
         {login => {
           return (
-            <View style={styles.container}>
+            <View 
+              style={styles.container}>
               <Text style={styles.errorText}>{this.state.error}</Text>
               <FormLabel>Email</FormLabel>
               <FormInput
@@ -64,10 +64,13 @@ export default class SignInScreen extends React.Component {
                 title="Sign in!"
                 onPress={() => this._signInAsync(login)}
               />
-              <Button
-                title="Sign up!"
-                onPress={() => this.props.navigation.navigate("SignUp")}
-              />
+              <View style={styles.signupButton}>
+                <TouchableOpacity style={styles.signupButton}
+                  title="Sign up!"
+                  onPress={() => this.props.navigation.navigate("SignUp")}>
+                  <Text style={styles.signupButtonText}>Sign up!</Text>
+                </TouchableOpacity>
+              </View> 
             </View>
           );
         }}
@@ -98,9 +101,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "#fff"
+    backgroundColor: "#005B06"
   },
   errorText: {
       textAlign: "center",
-  }
+  },
+  signupButton: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFB800",
+  },
+  signupButtonText: {
+    color: "white"
+  },
 });
