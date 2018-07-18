@@ -20,7 +20,7 @@ export default class HomeScreen extends React.Component {
   };
 
   _signOutAsync = async () => {
-    await AsyncStorage.removeItem("userToken");
+    await AsyncStorage.removeItem("token");
     this.props.navigation.navigate("Auth");
   };
 
@@ -60,8 +60,11 @@ export default class HomeScreen extends React.Component {
           </View>
 
           <View style={styles.groupScreenButton}>
-            <Button title="Groups" onPress={() => this.props.navigation.navigate('Groups')} />
-          </View> 
+            <Button
+              title="Groups"
+              onPress={() => this.props.navigation.navigate("Groups")}
+            />
+          </View>
 
           <View style={styles.helpContainer}>
             <TouchableOpacity
@@ -90,7 +93,6 @@ export default class HomeScreen extends React.Component {
         </View>
       </View>
     );
-
   }
 
   _maybeRenderDevelopmentModeWarning() {

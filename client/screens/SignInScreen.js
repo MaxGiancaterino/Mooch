@@ -40,8 +40,7 @@ export default class SignInScreen extends React.Component {
       <Mutation mutation={LOGIN}>
         {login => {
           return (
-            <View 
-              style={styles.container}>
+            <View style={styles.container}>
               <Text style={styles.errorText}>{this.state.error}</Text>
               <FormLabel>Email</FormLabel>
               <FormInput
@@ -61,20 +60,20 @@ export default class SignInScreen extends React.Component {
               />
 
               <View style={styles.buttonContainer}>
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={styles.signinButton}
                   onPress={() => this._signInAsync(login)}
                 >
                   <Text style={styles.signinButtonText}>Sign in!</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={styles.signupButton}
                   onPress={() => this.props.navigation.navigate("SignUp")}
                 >
                   <Text style={styles.signupButtonText}>Sign up!</Text>
                 </TouchableOpacity>
-              </View> 
+              </View>
             </View>
           );
         }}
@@ -92,11 +91,16 @@ export default class SignInScreen extends React.Component {
         }
       });
       this.setState({ email: "", password: "" });
-      await AsyncStorage.setItem("userToken", data.login.token);
+      console.log(data.login.token);
+      await AsyncStorage.setItem("token", data.login.token);
       this.props.navigation.navigate("App");
     } catch (e) {
       console.log(e);
-      this.setState({ email: "", password: "", error: "Invalid sign in credentials" });
+      this.setState({
+        email: "",
+        password: "",
+        error: "Invalid sign in credentials"
+      });
     }
   };
 }
@@ -108,12 +112,12 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   errorText: {
-    textAlign: "center",
+    textAlign: "center"
   },
   buttonContainer: {
     width: "75%",
     paddingTop: 20,
-    flexDirection: "row",
+    flexDirection: "row"
   },
   signinButton: {
     width: "50%",
@@ -121,22 +125,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     paddingTop: 5,
-    paddingBottom: 5,
+    paddingBottom: 5
   },
   signinButtonText: {
     color: "#005B06",
-    fontSize: 20,
+    fontSize: 20
   },
-    signupButton: {
+  signupButton: {
     width: "50%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FFB800",
     paddingTop: 5,
-    paddingBottom: 5,
+    paddingBottom: 5
   },
   signupButtonText: {
     color: "white",
-    fontSize: 20,
-  },
+    fontSize: 20
+  }
 });
