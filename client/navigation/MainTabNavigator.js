@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import GroupsScreen from '../screens/GroupsScreen'; 
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -21,6 +22,20 @@ HomeStack.navigationOptions = {
           ? `ios-information-circle${focused ? '' : '-outline'}`
           : 'md-information-circle'
       }
+    />
+  ),
+};
+
+const GroupsStack = createStackNavigator({
+  Groups: GroupsScreen,
+});
+
+GroupsStack.navigationOptions = {
+  tabBarLabel: 'Groups',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
     />
   ),
 };
