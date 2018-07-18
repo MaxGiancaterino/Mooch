@@ -40,41 +40,48 @@ export default class SignInScreen extends React.Component {
       <Mutation mutation={LOGIN}>
         {login => {
           return (
-            <View 
-              style={styles.container}>
-              <Text style={styles.errorText}>{this.state.error}</Text>
-              <FormLabel>Email</FormLabel>
-              <FormInput
-                value={this.state.email}
-                onChangeText={text => {
-                  this.setState({ email: text });
-                }}
-              />
+            <View style={styles.container}>
+              <View>
+                <Text style={styles.errorText}>{this.state.error}</Text>
+                <View style={{ alignItems: "center", marginBottom: 20 }}>
+                  <Text style={{ color: "#FFB800", fontSize: 24 }}>
+                    Sign in to <Text style={{ color: "white" }}>Mooch!</Text>
+                  </Text>
+                </View>
+                <FormLabel labelStyle={styles.label}>Email</FormLabel>
+                <FormInput
+                  value={this.state.email}
+                  onChangeText={text => {
+                    this.setState({ email: text });
+                  }}
+                />
 
-              <FormLabel>Password</FormLabel>
-              <FormInput
-                type="password"
-                value={this.state.password}
-                onChangeText={text => {
-                  this.setState({ password: text });
-                }}
-              />
+                <FormLabel labelStyle={styles.label}>Password</FormLabel>
+                <FormInput
+                  type="password"
+                  value={this.state.password}
+                  onChangeText={text => {
+                    this.setState({ password: text });
+                  }}
+                />
+              </View>
+              <View style={styles.centerContainer}>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={styles.signinButton}
+                    onPress={() => this._signInAsync(login)}
+                  >
+                    <Text style={styles.signinButtonText}>Sign in!</Text>
+                  </TouchableOpacity>
 
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                  style={styles.signinButton}
-                  onPress={() => this._signInAsync(login)}
-                >
-                  <Text style={styles.signinButtonText}>Sign in!</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity 
-                  style={styles.signupButton}
-                  onPress={() => this.props.navigation.navigate("SignUp")}
-                >
-                  <Text style={styles.signupButtonText}>Sign up!</Text>
-                </TouchableOpacity>
-              </View> 
+                  <TouchableOpacity
+                    style={styles.signupButton}
+                    onPress={() => this.props.navigation.navigate("SignUp")}
+                  >
+                    <Text style={styles.signupButtonText}>Sign up!</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
           );
         }}
@@ -96,7 +103,11 @@ export default class SignInScreen extends React.Component {
       this.props.navigation.navigate("App");
     } catch (e) {
       console.log(e);
-      this.setState({ email: "", password: "", error: "Invalid sign in credentials" });
+      this.setState({
+        email: "",
+        password: "",
+        error: "Wrong email or password! Please try again."
+      });
     }
   };
 }
@@ -104,39 +115,52 @@ export default class SignInScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#005B06",
+    backgroundColor: "#5B0000"
+  },
+  centerContainer: {
     alignItems: "center"
   },
   errorText: {
+    padding: 20,
     textAlign: "center",
+    color: "white"
+  },
+  label: {
+    color: "white",
+    fontSize: 14
   },
   buttonContainer: {
+    justifyContent: "space-between",
     width: "75%",
-    paddingTop: 20,
-    flexDirection: "row",
+    paddingTop: 50,
+    flexDirection: "row"
   },
   signinButton: {
-    width: "50%",
+    width: "45%",
+    borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: 7.5,
+    paddingBottom: 7.5
   },
   signinButtonText: {
-    color: "#005B06",
-    fontSize: 20,
+    color: "#5B0000",
+    fontSize: 16
   },
-    signupButton: {
-    width: "50%",
+  signupButton: {
+    width: "45%",
+    borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FFB800",
-    paddingTop: 5,
-    paddingBottom: 5,
+    borderWidth: 3,
+    borderStyle: "solid",
+    borderColor: "#FFB800",
+    paddingTop: 7.5,
+    paddingBottom: 7.5
   },
   signupButtonText: {
-    color: "white",
-    fontSize: 20,
-  },
+    color: "#FFB800",
+    fontSize: 16
+  }
 });
