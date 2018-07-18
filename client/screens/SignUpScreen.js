@@ -6,7 +6,8 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  Text
+  Text,
+  TouchableOpacity
 } from "react-native";
 import {
   FormLabel,
@@ -41,8 +42,12 @@ export default class SignInScreen extends React.Component {
           return (
             <View style={styles.container}>
               <Text style={styles.errorText}>{this.state.error}</Text>
-
-              <FormLabel>Full name</FormLabel>
+              <View style={{ alignItems: "center", marginBottom: 20 }}>
+                <Text style={{ color: "#FFB800", fontSize: 24 }}>
+                  Sign up for <Text style={{ color: "white" }}>Mooch!</Text>
+                </Text>
+              </View>
+              <FormLabel labelStyle={styles.label}>Full name</FormLabel>
               <FormInput
                 value={this.state.name}
                 onChangeText={text => {
@@ -50,7 +55,7 @@ export default class SignInScreen extends React.Component {
                 }}
               />
 
-              <FormLabel>Email</FormLabel>
+              <FormLabel labelStyle={styles.label}>Email</FormLabel>
               <FormInput
                 value={this.state.email}
                 onChangeText={text => {
@@ -58,7 +63,7 @@ export default class SignInScreen extends React.Component {
                 }}
               />
 
-              <FormLabel>Password</FormLabel>
+              <FormLabel labelStyle={styles.label}>Password</FormLabel>
               <FormInput
                 type="password"
                 value={this.state.password}
@@ -66,11 +71,14 @@ export default class SignInScreen extends React.Component {
                   this.setState({ password: text });
                 }}
               />
-
-              <Button
-                title="Sign up!"
-                onPress={() => this._signUpAsync(signup)}
-              />
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={styles.signupButton}
+                  onPress={() => this._signInAsync(signup)}
+                >
+                  <Text style={styles.signupButtonText}>Sign up!</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           );
         }}
@@ -106,10 +114,31 @@ export default class SignInScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: "#fff"
+    backgroundColor: "#5B0000"
   },
   errorText: {
+    padding: 20,
     textAlign: "center"
+  },
+  label: {
+    color: "white",
+    fontSize: 14
+  },
+  buttonContainer: {
+    alignItems: "center",
+    paddingTop: 30
+  },
+  signupButton: {
+    width: "30%",
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    paddingTop: 7.5,
+    paddingBottom: 7.5
+  },
+  signupButtonText: {
+    color: "#5B0000",
+    fontSize: 16
   }
 });
