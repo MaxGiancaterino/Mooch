@@ -5,6 +5,7 @@ import MainTabNavigator from "./MainTabNavigator";
 import AuthLoadingScreen from "../screens/AuthLoadingScreen";
 import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
+import GroupsScreen from "../screens/GroupsScreen";
 
 const AuthStack = createStackNavigator({ SignIn: SignInScreen, SignUp: SignUpScreen });
 
@@ -15,7 +16,7 @@ export default createSwitchNavigator(
     AuthLoading: AuthLoadingScreen,
     App: MainTabNavigator,
     Auth: AuthStack,
-    Groups: GroupsStack
+    Groups: GroupsScreen
   },
   {
     initialRouteName: "AuthLoading"
