@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
       title: "groups",
       headerRight: (
         <TouchableOpacity
-          onPress={() => navigation.navigate("CreateGroupModal")}
+          onPress={() => navigation.navigate("ModalCreateGroup")}
         >
           <EvilIcons name="plus" size={32} />
         </TouchableOpacity>
