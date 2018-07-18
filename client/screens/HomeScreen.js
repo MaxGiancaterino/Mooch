@@ -18,6 +18,7 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
+
   _signOutAsync = async () => {
     await AsyncStorage.removeItem("userToken");
     this.props.navigation.navigate("Auth");
@@ -57,6 +58,10 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.getStartedText}>Mooch in development!</Text>
             <Button title="Sign out!" onPress={this._signOutAsync} />
           </View>
+
+          <View style={styles.groupScreenButton}>
+            <Button title="Groups" onPress={() => this.props.navigation.navigate('Groups')} />
+          </View> 
 
           <View style={styles.helpContainer}>
             <TouchableOpacity
