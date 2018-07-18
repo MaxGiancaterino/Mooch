@@ -12,8 +12,19 @@ import {
 } from "react-native";
 
 import { EvilIcons } from "@expo/vector-icons";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 
-export default class HomeScreen extends React.Component {
+const GET_GROUPS = gql`
+  query groups {
+    groups {
+      id
+      name
+    }
+  }
+`;
+
+export default class GroupsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: "groups",
@@ -39,7 +50,28 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
-    return <ScrollView style={styles.container} />;
+    return (
+      <ScrollView style={styles.container}>
+        <Query query={GET_GROUPS}>
+          {({ loading, error, data }) => {
+            if (loading) return <Text>"loading..."</Text>;
+            if (error) {
+              console.log(error);
+              return <Text>"oops"</Text>;
+            }
+            if (!data) return <Text>"no data"</Text>;
+            if (!data.groups) return <Text>"no users"</Text>;
+            return data.groups.map(group => {
+              return (
+                <View>
+                  <Text>{group.name}</Text>
+                </View>
+              );
+            });
+          }}
+        </Query>
+      </ScrollView>
+    );
   }
 }
 

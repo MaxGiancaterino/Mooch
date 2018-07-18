@@ -18,8 +18,7 @@ export default createSwitchNavigator(
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
     AuthLoading: AuthLoadingScreen,
     App: MainTabNavigator,
-    Auth: AuthStack,
-    Groups: GroupsScreen
+    Auth: AuthStack
   },
   {
     initialRouteName: "AuthLoading"
