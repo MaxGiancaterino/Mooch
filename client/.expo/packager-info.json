@@ -1,0 +1,8 @@
+{
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://js-gxz.hkim00.client.exp.direct",
+  "packagerNgrokUrl": "https://packager.js-gxz.hkim00.client.exp.direct",
+  "ngrokPid": 159,
+  "packagerPort": 19002,
+  "packagerPid": 148
+}

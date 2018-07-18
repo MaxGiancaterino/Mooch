@@ -60,14 +60,18 @@ export default class SignInScreen extends React.Component {
                 }}
               />
 
-              <Button
-                title="Sign in!"
-                onPress={() => this._signInAsync(login)}
-              />
-              <View style={styles.signupButton}>
-                <TouchableOpacity style={styles.signupButton}
-                  title="Sign up!"
-                  onPress={() => this.props.navigation.navigate("SignUp")}>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity 
+                  style={styles.signinButton}
+                  onPress={() => this._signInAsync(login)}
+                >
+                  <Text style={styles.signinButtonText}>Sign in!</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                  style={styles.signupButton}
+                  onPress={() => this.props.navigation.navigate("SignUp")}
+                >
                   <Text style={styles.signupButtonText}>Sign up!</Text>
                 </TouchableOpacity>
               </View> 
@@ -100,19 +104,39 @@ export default class SignInScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: "#005B06"
+    backgroundColor: "#005B06",
+    alignItems: "center"
   },
   errorText: {
-      textAlign: "center",
+    textAlign: "center",
   },
-  signupButton: {
-    width: "100%",
+  buttonContainer: {
+    width: "75%",
+    paddingTop: 20,
+    flexDirection: "row",
+  },
+  signinButton: {
+    width: "50%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
+  signinButtonText: {
+    color: "#005B06",
+    fontSize: 20,
+  },
+    signupButton: {
+    width: "50%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FFB800",
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   signupButtonText: {
-    color: "white"
+    color: "white",
+    fontSize: 20,
   },
 });

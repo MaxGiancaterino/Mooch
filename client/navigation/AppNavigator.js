@@ -7,7 +7,10 @@ import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import GroupsScreen from "../screens/GroupsScreen";
 
-const AuthStack = createStackNavigator({ SignIn: SignInScreen, SignUp: SignUpScreen });
+const AuthStack = createStackNavigator({
+  SignIn: SignInScreen,
+  SignUp: SignUpScreen
+});
 
 export default createSwitchNavigator(
   {
