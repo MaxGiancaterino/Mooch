@@ -4,3 +4,9 @@ type User {
   email: String! @unique
   password: String!
 }
+
+type Group {
+  id: ID! @unique
+  name: String!
+  members: [User!]!
+}
