@@ -8,7 +8,7 @@ server/node_modules
 
 # dependencies
 client/node_modules
-client/.expo/**/*
+client/.expo
 
 # testing
 /coverage
