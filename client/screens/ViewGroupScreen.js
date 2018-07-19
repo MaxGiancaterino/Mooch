@@ -77,11 +77,8 @@ export default class ViewGroupsScreen extends React.Component {
               if (!data) return <Text>"no data"</Text>;
               if (!data.group.members) return <Text>"no members"</Text>;
               return data.group.members.map(member => {
-                return (
-                  <View>
-                    <User key={member.id} name={member.name} />
-                  </View>
-                );
+                console.log(member.id);
+                return <User key={member.id} name={member.name} />;
               });
             }}
           </Query>

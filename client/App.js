@@ -15,12 +15,12 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import AppNavigator from "./navigation/AppNavigator";
 
-const httpLink = new HttpLink({ uri: "http://192.168.1.156:4000" });
+const httpLink = new HttpLink({ uri: "http://10.0.20.70:4000" });
+// const httpLink = new HttpLink({ uri: "http://10.0.20.33:4000" });
 
 const authLink = setContext(async (_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = await AsyncStorage.getItem("token");
-  console.log("HEADER: " + token + "<==");
   // return the headers to the context so httpLink can read them
   return {
     headers: {

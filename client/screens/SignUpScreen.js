@@ -74,7 +74,7 @@ export default class SignInScreen extends React.Component {
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={styles.signupButton}
-                  onPress={() => this._signInAsync(signup)}
+                  onPress={() => this._signUpAsync(signup)}
                 >
                   <Text style={styles.signupButtonText}>Sign up!</Text>
                 </TouchableOpacity>
@@ -97,7 +97,8 @@ export default class SignInScreen extends React.Component {
         }
       });
       this.setState({ name: "", email: "", password: "" });
-      await AsyncStorage.setItem("userToken", data.signup.token);
+      await AsyncStorage.setItem("token", data.signup.token);
+      await AsyncStorage.setItem("email", data.login.user.email);
       this.props.navigation.navigate("App");
     } catch (e) {
       console.log(e);
