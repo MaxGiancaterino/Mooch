@@ -1,8 +1,1 @@
-{
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://2r-s7s.hkim00.client.exp.direct",
-  "packagerNgrokUrl": "https://packager.2r-s7s.hkim00.client.exp.direct",
-  "ngrokPid": 1238,
-  "packagerPort": 19001,
-  "packagerPid": 1221
-}
+{}

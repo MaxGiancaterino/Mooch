@@ -27,6 +27,26 @@ const GET_GROUPS = gql`
 `;
 
 export default class GroupsScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.updateGroups = this.updateGroups.bind(this);
+    this.props.navigation.setParams({
+      rerender: "TEST"
+    });
+  }
+
+  componentDidMount() {
+    console.log("MOUNTING");
+    this.props.navigation.setParams({
+      rerender: "TEST"
+    });
+  }
+
+  updateGroups() {
+    console.log("FORCING UPDATE");
+    this.forceUpdate();
+  }
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: "groups",
@@ -57,7 +77,7 @@ export default class GroupsScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.groupsViewWrapper}>
-            <Query query={GET_GROUPS}>
+            <Query query={GET_GROUPS} pollInterval={300}>
               {({ loading, error, data }) => {
                 if (loading)
                   return <Text style={styles.loadingText}>"loading..."</Text>;
