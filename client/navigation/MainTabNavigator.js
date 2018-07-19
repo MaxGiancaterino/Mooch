@@ -2,7 +2,8 @@ import React from "react";
 import { Platform, Text } from "react-native";
 import {
   createStackNavigator,
-  createBottomTabNavigator
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
@@ -13,6 +14,7 @@ import GroupsScreen from "../screens/GroupsScreen";
 import ViewGroupScreen from "../screens/ViewGroupScreen";
 import ModalCreateGroup from "../screens/ModalCreateGroup";
 import ModalCreatePayment from "../screens/ModalCreatePayment";
+import PaymentsScreen from "../screens/PaymentsScreen";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
@@ -31,10 +33,14 @@ HomeStack.navigationOptions = {
     />
   )
 };
+const GroupNavigator = createMaterialTopTabNavigator({
+  GroupMembers: ViewGroupScreen,
+  GroupPayments: PaymentsScreen
+});
 
 const GroupsStack = createStackNavigator({
   Groups: GroupsScreen,
-  Group: ViewGroupScreen
+  Group: GroupNavigator
 });
 
 const LinksStack = createStackNavigator({
@@ -78,7 +84,6 @@ const TabNavigator = createBottomTabNavigator({
   GroupsStack,
   SettingsStack
 });
-
 const RootStack = createStackNavigator(
   {
     Main: {

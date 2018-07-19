@@ -31,8 +31,8 @@ const GET_MEMBERS = gql`
 export default class ViewGroupsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Groups",
-      tabBarLabel: "Groups",
+      title: "Members",
+      tabBarLabel: "Members",
       tabBarIcon: ({ focused }) => (
         <TabBarIcon
           focused={focused}

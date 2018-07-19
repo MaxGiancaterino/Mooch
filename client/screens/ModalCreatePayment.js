@@ -46,22 +46,6 @@ class ModalCreatePayment extends React.Component {
               this.setState({ cost: text });
             }}
           />
-          <TouchableOpacity
-            style={{
-              padding: 20,
-              marginTop: 20,
-              borderWidth: 1,
-              width: 200,
-              alignSelf: "center"
-            }}
-            onPress={async () => {
-              await this.setState({
-                emails: [...this.state.emails, { email: this.state.email }]
-              });
-            }}
-          >
-            <Text style={{ textAlign: "center" }}>Add member</Text>
-          </TouchableOpacity>
         </ScrollView>
         <View
           style={{
@@ -81,7 +65,8 @@ class ModalCreatePayment extends React.Component {
                         variables: {
                           data: {
                             name: this.state.name,
-                            cost: this.state.cost
+                            cost: this.state.cost,
+                            debts: []
                           }
                         }
                       });
