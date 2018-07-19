@@ -35,29 +35,37 @@ export default class ViewGroupsScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <Query
-          variables={{
-            where: {
-              id: this.props.navigation.state.params.id
-            }
-          }}
-          query={GET_MEMBERS}
-        >
-          {({ loading, error, data }) => {
-            if (loading) return <Text>"loading..."</Text>;
-            if (error) {
-              console.log(error);
-              return <Text>"oops"</Text>;
-            }
-            if (!data) return <Text>"no data"</Text>;
-            if (!data.group.members) return <Text>"no members"</Text>;
-            return data.group.members.map(member => {
-              return <User key={member.id} name={member.name} />;
-            });
-          }}
-        </Query>
-      </ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.membersText}>Members</Text>
+        <ScrollView>
+          <Query
+            variables={{
+              where: {
+                id: this.props.navigation.state.params.id
+              }
+            }}
+            query={GET_MEMBERS}
+          >
+            {({ loading, error, data }) => {
+              if (loading)
+                return <Text style={styles.loadingText}>"Loading..."</Text>;
+              if (error) {
+                console.log(error);
+                return <Text>"oops"</Text>;
+              }
+              if (!data) return <Text>"no data"</Text>;
+              if (!data.group.members) return <Text>"no members"</Text>;
+              return data.group.members.map(member => {
+                return (
+                  <View>
+                    <User key={member.id} name={member.name} />
+                  </View>
+                );
+              });
+            }}
+          </Query>
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -66,6 +74,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    margin: 10,
+    flexWrap: "wrap"
+  },
+  loadingText: {
+    fontSize: 28
+  },
+  membersText: {
+    fontSize: 42,
+    marginBottom: 20
   }
 });

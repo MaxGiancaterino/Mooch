@@ -1,8 +1,1 @@
-{
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://2r-s7s.mgiancaterino.client.exp.direct",
-  "packagerNgrokUrl": "https://packager.2r-s7s.mgiancaterino.client.exp.direct",
-  "ngrokPid": 30788,
-  "packagerPort": 19001,
-  "packagerPid": 26368
-}
+{}
