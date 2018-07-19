@@ -9,7 +9,7 @@ export const resolvers = {
   Query,
   Mutation: {
     ...auth,
-    ...group
+    ...group,
     ...payment
   },
   AuthPayload

@@ -29,8 +29,29 @@ const GET_MEMBERS = gql`
 `;
 
 export default class ViewGroupsScreen extends React.Component {
-  static navigationOptions = {
-    title: "Group members"
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Groups",
+      headerRight: (
+        <TouchableOpacity
+          style={styles.addPaymentButton}
+          onPress={() => navigation.navigate("ModalCreatePayment")}
+        >
+          <EvilIcons name="plus" size={32} />
+        </TouchableOpacity>
+      ),
+      tabBarLabel: "Groups",
+      tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+          focused={focused}
+          name={
+            Platform.OS === "ios"
+              ? `ios-link${focused ? "" : "-outline"}`
+              : "md-link"
+          }
+        />
+      )
+    };
   };
 
   render() {
@@ -70,6 +91,8 @@ export default class ViewGroupsScreen extends React.Component {
   }
 }
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -77,9 +100,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flex: 1,
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     margin: 10,
     flexWrap: "wrap"
+  },
+  addPaymentButton: {
+    marginRight: 10
   },
   loadingText: {
     fontSize: 28,
