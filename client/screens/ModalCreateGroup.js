@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import {
   FormLabel,
   FormInput,
@@ -24,21 +24,23 @@ class ModalCreateGroup extends React.Component {
   };
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", marginTop: 50 }}>
-        <FormLabel>Name</FormLabel>
-        <FormInput
-          value={this.state.name}
-          onChangeText={text => {
-            this.setState({ name: text });
-          }}
-        />
-        <FormLabel>Add member</FormLabel>
-        <FormInput
-          value={this.state.email}
-          onChangeText={text => {
-            this.setState({ email: text });
-          }}
-        />
+      <View style={styles.container}>
+        <View style={styles.form}>
+          <FormLabel labelStyle={styles.label}>Name of new group</FormLabel>
+          <FormInput
+            value={this.state.name}
+            onChangeText={text => {
+              this.setState({ name: text });
+            }}
+          />
+          <FormLabel labelStyle={styles.label}>Add member</FormLabel>
+          <FormInput
+            value={this.state.email}
+            onChangeText={text => {
+              this.setState({ email: text });
+            }}
+          />
+        </View>
         <TouchableOpacity
           onPress={() =>
             this.setState({ email: [...this.state.emails, this.state.email] })
@@ -58,7 +60,8 @@ class ModalCreateGroup extends React.Component {
         <View>
           <Query query={GET_USERS}>
             {({ loading, error, data }) => {
-              if (loading) return <Text>"loading..."</Text>;
+              if (loading)
+                return <Text style={styles.loadingText}>"Loading..."</Text>;
               if (error) return <Text>"oops"</Text>;
               if (!data) return <Text>"no data"</Text>;
               if (!data.users) return <Text>"no users"</Text>;
@@ -78,3 +81,22 @@ class ModalCreateGroup extends React.Component {
 }
 
 export default ModalCreateGroup;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    alignItems: "center"
+  },
+  loadingText: {
+    fontSize: 28
+  },
+  label: {
+    color: "#5B0000",
+    fontSize: 14
+  },
+  form: {
+    marginTop: 20,
+    alignItems: "center"
+  }
+});
