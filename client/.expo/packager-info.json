@@ -1,1 +1,8 @@
-{}
+{
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://r4-x34.mgiancaterino.client.exp.direct",
+  "packagerNgrokUrl": "https://packager.r4-x34.mgiancaterino.client.exp.direct",
+  "ngrokPid": 16028,
+  "packagerPort": 19001,
+  "packagerPid": 6528
+}

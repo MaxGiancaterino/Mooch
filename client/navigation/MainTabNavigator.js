@@ -12,6 +12,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 import GroupsScreen from "../screens/GroupsScreen";
 import ViewGroupScreen from "../screens/ViewGroupScreen";
 import ModalCreateGroup from "../screens/ModalCreateGroup";
+import ModalCreatePayment from "../screens/ModalCreatePayment";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
@@ -85,6 +86,9 @@ const RootStack = createStackNavigator(
     },
     ModalCreateGroup: {
       screen: ModalCreateGroup
+    },
+    ModalCreatePayment: {
+      screen: ModalCreatePayment
     }
   },
   {
