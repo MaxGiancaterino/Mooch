@@ -7,17 +7,16 @@ class Group extends React.Component {
   render() {
     console.log("NAME: " + this.props.name + "<==");
     return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() =>
-            this.props.navigation.push("Group", { id: this.props.id })
-          }
-        >
-          <View style={styles.group}>
-            <Text style={styles.groupText}>{this.props.name}</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() =>
+          this.props.navigation.push("Group", { id: this.props.id })
+        }
+      >
+        <View style={styles.group}>
+          <Text style={styles.groupText}>{this.props.name}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }
