@@ -1,5 +1,9 @@
-# source: https://eu1.prisma.sh/h_kim-96a1f0/mooch/dev
-# timestamp: Thu Jul 19 2018 17:25:10 GMT+0100 (WEST)
+# source: https://eu1.prisma.sh/max-giancaterino-9830e5/mooch/dev
+# timestamp: Thu Jul 19 2018 20:51:57 GMT+0000 (Sao Tome Daylight Time)
+
+type AggregateDebt {
+  count: Int!
+}
 
 type AggregateGroup {
   count: Int!
@@ -18,10 +22,217 @@ type BatchPayload {
   count: Long!
 }
 
+type Debt implements Node {
+  id: ID!
+  amount: Float!
+  debtor(where: UserWhereInput): User!
+  creditor(where: UserWhereInput): User!
+}
+
+"""A connection to a list of items."""
+type DebtConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [DebtEdge]!
+  aggregate: AggregateDebt!
+}
+
+input DebtCreateInput {
+  amount: Float!
+  debtor: UserCreateOneInput!
+  creditor: UserCreateOneInput!
+}
+
+input DebtCreateManyInput {
+  create: [DebtCreateInput!]
+  connect: [DebtWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type DebtEdge {
+  """The item at the end of the edge."""
+  node: Debt!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum DebtOrderByInput {
+  id_ASC
+  id_DESC
+  amount_ASC
+  amount_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type DebtPreviousValues {
+  id: ID!
+  amount: Float!
+}
+
+type DebtSubscriptionPayload {
+  mutation: MutationType!
+  node: Debt
+  updatedFields: [String!]
+  previousValues: DebtPreviousValues
+}
+
+input DebtSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DebtSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DebtSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DebtSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: DebtWhereInput
+}
+
+input DebtUpdateDataInput {
+  amount: Float
+  debtor: UserUpdateOneInput
+  creditor: UserUpdateOneInput
+}
+
+input DebtUpdateInput {
+  amount: Float
+  debtor: UserUpdateOneInput
+  creditor: UserUpdateOneInput
+}
+
+input DebtUpdateManyInput {
+  create: [DebtCreateInput!]
+  connect: [DebtWhereUniqueInput!]
+  disconnect: [DebtWhereUniqueInput!]
+  delete: [DebtWhereUniqueInput!]
+  update: [DebtUpdateWithWhereUniqueNestedInput!]
+  upsert: [DebtUpsertWithWhereUniqueNestedInput!]
+}
+
+input DebtUpdateWithWhereUniqueNestedInput {
+  where: DebtWhereUniqueInput!
+  data: DebtUpdateDataInput!
+}
+
+input DebtUpsertWithWhereUniqueNestedInput {
+  where: DebtWhereUniqueInput!
+  update: DebtUpdateDataInput!
+  create: DebtCreateInput!
+}
+
+input DebtWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DebtWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DebtWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DebtWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
+  debtor: UserWhereInput
+  creditor: UserWhereInput
+  _MagicalBackRelation_DebtToPayment_every: PaymentWhereInput
+  _MagicalBackRelation_DebtToPayment_some: PaymentWhereInput
+  _MagicalBackRelation_DebtToPayment_none: PaymentWhereInput
+}
+
+input DebtWhereUniqueInput {
+  id: ID
+}
+
 type Group implements Node {
   id: ID!
   name: String!
   members(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment!]
 }
 
 """A connection to a list of items."""
@@ -37,6 +248,7 @@ type GroupConnection {
 input GroupCreateInput {
   name: String!
   members: UserCreateManyInput
+  payments: PaymentCreateManyInput
 }
 
 """An edge in a connection."""
@@ -106,6 +318,7 @@ input GroupSubscriptionWhereInput {
 input GroupUpdateInput {
   name: String
   members: UserUpdateManyInput
+  payments: PaymentUpdateManyInput
 }
 
 input GroupWhereInput {
@@ -200,6 +413,9 @@ input GroupWhereInput {
   members_every: UserWhereInput
   members_some: UserWhereInput
   members_none: UserWhereInput
+  payments_every: PaymentWhereInput
+  payments_some: PaymentWhereInput
+  payments_none: PaymentWhereInput
 }
 
 input GroupWhereUniqueInput {
@@ -216,21 +432,27 @@ type Mutation {
   createGroup(data: GroupCreateInput!): Group!
   createPayment(data: PaymentCreateInput!): Payment!
   createUser(data: UserCreateInput!): User!
+  createDebt(data: DebtCreateInput!): Debt!
   updateGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateDebt(data: DebtUpdateInput!, where: DebtWhereUniqueInput!): Debt
   deleteGroup(where: GroupWhereUniqueInput!): Group
   deletePayment(where: PaymentWhereUniqueInput!): Payment
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteDebt(where: DebtWhereUniqueInput!): Debt
   upsertGroup(where: GroupWhereUniqueInput!, create: GroupCreateInput!, update: GroupUpdateInput!): Group!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertDebt(where: DebtWhereUniqueInput!, create: DebtCreateInput!, update: DebtUpdateInput!): Debt!
   updateManyGroups(data: GroupUpdateInput!, where: GroupWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateInput!, where: PaymentWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyDebts(data: DebtUpdateInput!, where: DebtWhereInput): BatchPayload!
   deleteManyGroups(where: GroupWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyDebts(where: DebtWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -264,6 +486,7 @@ type Payment implements Node {
   id: ID!
   name: String!
   cost: Float!
+  debts(where: DebtWhereInput, orderBy: DebtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Debt!]
 }
 
 """A connection to a list of items."""
@@ -279,6 +502,12 @@ type PaymentConnection {
 input PaymentCreateInput {
   name: String!
   cost: Float!
+  debts: DebtCreateManyInput
+}
+
+input PaymentCreateManyInput {
+  create: [PaymentCreateInput!]
+  connect: [PaymentWhereUniqueInput!]
 }
 
 """An edge in a connection."""
@@ -348,9 +577,36 @@ input PaymentSubscriptionWhereInput {
   node: PaymentWhereInput
 }
 
+input PaymentUpdateDataInput {
+  name: String
+  cost: Float
+  debts: DebtUpdateManyInput
+}
+
 input PaymentUpdateInput {
   name: String
   cost: Float
+  debts: DebtUpdateManyInput
+}
+
+input PaymentUpdateManyInput {
+  create: [PaymentCreateInput!]
+  connect: [PaymentWhereUniqueInput!]
+  disconnect: [PaymentWhereUniqueInput!]
+  delete: [PaymentWhereUniqueInput!]
+  update: [PaymentUpdateWithWhereUniqueNestedInput!]
+  upsert: [PaymentUpsertWithWhereUniqueNestedInput!]
+}
+
+input PaymentUpdateWithWhereUniqueNestedInput {
+  where: PaymentWhereUniqueInput!
+  data: PaymentUpdateDataInput!
+}
+
+input PaymentUpsertWithWhereUniqueNestedInput {
+  where: PaymentWhereUniqueInput!
+  update: PaymentUpdateDataInput!
+  create: PaymentCreateInput!
 }
 
 input PaymentWhereInput {
@@ -464,6 +720,12 @@ input PaymentWhereInput {
 
   """All values greater than or equal the given value."""
   cost_gte: Float
+  debts_every: DebtWhereInput
+  debts_some: DebtWhereInput
+  debts_none: DebtWhereInput
+  _MagicalBackRelation_GroupToPayment_every: GroupWhereInput
+  _MagicalBackRelation_GroupToPayment_some: GroupWhereInput
+  _MagicalBackRelation_GroupToPayment_none: GroupWhereInput
 }
 
 input PaymentWhereUniqueInput {
@@ -474,12 +736,15 @@ type Query {
   groups(where: GroupWhereInput, orderBy: GroupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Group]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  debts(where: DebtWhereInput, orderBy: DebtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Debt]!
   group(where: GroupWhereUniqueInput!): Group
   payment(where: PaymentWhereUniqueInput!): Payment
   user(where: UserWhereUniqueInput!): User
+  debt(where: DebtWhereUniqueInput!): Debt
   groupsConnection(where: GroupWhereInput, orderBy: GroupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GroupConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  debtsConnection(where: DebtWhereInput, orderBy: DebtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DebtConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -492,6 +757,7 @@ type Subscription {
   group(where: GroupSubscriptionWhereInput): GroupSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  debt(where: DebtSubscriptionWhereInput): DebtSubscriptionPayload
 }
 
 type User implements Node {
@@ -520,6 +786,11 @@ input UserCreateInput {
 input UserCreateManyInput {
   create: [UserCreateInput!]
   connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -613,9 +884,22 @@ input UserUpdateManyInput {
   upsert: [UserUpsertWithWhereUniqueNestedInput!]
 }
 
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
 input UserUpdateWithWhereUniqueNestedInput {
   where: UserWhereUniqueInput!
   data: UserUpdateDataInput!
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithWhereUniqueNestedInput {
@@ -793,9 +1077,15 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   password_not_ends_with: String
+  _MagicalBackRelation_DebtToDebtor_every: DebtWhereInput
+  _MagicalBackRelation_DebtToDebtor_some: DebtWhereInput
+  _MagicalBackRelation_DebtToDebtor_none: DebtWhereInput
   _MagicalBackRelation_GroupToUser_every: GroupWhereInput
   _MagicalBackRelation_GroupToUser_some: GroupWhereInput
   _MagicalBackRelation_GroupToUser_none: GroupWhereInput
+  _MagicalBackRelation_DebtToCreditor_every: DebtWhereInput
+  _MagicalBackRelation_DebtToCreditor_some: DebtWhereInput
+  _MagicalBackRelation_DebtToCreditor_none: DebtWhereInput
 }
 
 input UserWhereUniqueInput {

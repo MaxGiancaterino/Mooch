@@ -9,10 +9,19 @@ type Group {
   id: ID! @unique
   name: String!
   members: [User!]!
+  payments: [Payment!]!
 }
 
 type Payment {
   id: ID! @unique
   name: String!
   cost: Float!
+  debts: [Debt!]!
+}
+
+type Debt {
+  id: ID! @unique
+  amount: Float!
+  debtor: User! @relation(name: "DebtToDebtor")
+  creditor: User! @relation(name: "DebtToCreditor")
 }
