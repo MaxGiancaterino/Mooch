@@ -10,6 +10,7 @@ import {
   AsyncStorage,
   View
 } from "react-native";
+
 import User from "../components/User";
 
 import { EvilIcons } from "@expo/vector-icons";
