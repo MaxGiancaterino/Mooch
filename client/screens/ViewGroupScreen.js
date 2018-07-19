@@ -30,7 +30,7 @@ const GET_MEMBERS = gql`
 
 export default class ViewGroupsScreen extends React.Component {
   static navigationOptions = {
-    title: "Group members:"
+    title: "Group members"
   };
 
   render() {
@@ -82,10 +82,13 @@ const styles = StyleSheet.create({
     flexWrap: "wrap"
   },
   loadingText: {
-    fontSize: 28
+    fontSize: 28,
+    fontFamily: "AvenirNext-Medium"
   },
   membersText: {
     fontSize: 42,
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop: 20,
+    fontFamily: "AvenirNext-Medium"
   }
 });

@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
   },
   groupText: {
     fontSize: 24,
-    color: "white"
+    fontFamily: "Futura",
+    color: "white",
+    margin: 5
   }
 });
