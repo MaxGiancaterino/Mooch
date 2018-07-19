@@ -70,7 +70,7 @@ export default class ViewGroupsScreen extends React.Component {
           >
             {({ loading, error, data }) => {
               if (loading)
-                return <Text style={styles.loadingText}>"Loading..."</Text>;
+                return <Text style={styles.loadingText}>Loading...</Text>;
               if (error) {
                 console.log(error);
                 return <Text>"oops"</Text>;
