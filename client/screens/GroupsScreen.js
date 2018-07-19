@@ -80,7 +80,7 @@ export default class GroupsScreen extends React.Component {
             <Query query={GET_GROUPS} pollInterval={300}>
               {({ loading, error, data }) => {
                 if (loading)
-                  return <Text style={styles.loadingText}>"Loading..."</Text>;
+                  return <Text style={styles.loadingText}>Loading...</Text>;
                 if (error) {
                   console.log(error);
                   return <Text>"oops"</Text>;

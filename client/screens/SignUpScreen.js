@@ -21,6 +21,9 @@ const SIGN_UP = gql`
   mutation signup($email: String!, $password: String!, $name: String!) {
     signup(email: $email, password: $password, name: $name) {
       token
+      user {
+        email
+      }
     }
   }
 `;
@@ -98,7 +101,7 @@ export default class SignInScreen extends React.Component {
       });
       this.setState({ name: "", email: "", password: "" });
       await AsyncStorage.setItem("token", data.signup.token);
-      await AsyncStorage.setItem("email", data.login.user.email);
+      await AsyncStorage.setItem("email", data.signup.user.email);
       this.props.navigation.navigate("App");
     } catch (e) {
       console.log(e);
