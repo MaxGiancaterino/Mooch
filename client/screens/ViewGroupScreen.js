@@ -21,6 +21,7 @@ const GET_MEMBERS = gql`
     group(where: $where) {
       name
       members {
+        id
         name
       }
     }

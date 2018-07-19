@@ -26,12 +26,27 @@ const GET_GROUPS = gql`
 `;
 
 export default class GroupsScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.updateGroups = this.updateGroups.bind(this);
+  }
+
+  updateGroups() {
+    console.log("FORCING UPDATE");
+    this.forceUpdate();
+  }
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: "groups",
       headerRight: (
         <TouchableOpacity
-          onPress={() => navigation.navigate("ModalCreateGroup")}
+          onPress={() => {
+            // this.testFunction();
+            navigation.navigate("ModalCreateGroup", {
+              rerender: "TODO"
+            });
+          }}
         >
           <EvilIcons name="plus" size={32} />
         </TouchableOpacity>
@@ -54,7 +69,7 @@ export default class GroupsScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Query query={GET_GROUPS}>
-          {({ loading, error, data }) => {
+          {({ loading, error, data, refetch }) => {
             if (loading) return <Text>"loading..."</Text>;
             if (error) {
               console.log(error);
