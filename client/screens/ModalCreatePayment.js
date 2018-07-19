@@ -26,7 +26,7 @@ const CREATE_PAYMENT = gql`
 class ModalCreatePayment extends React.Component {
   state = {
     name: "",
-    cost: 0,
+    cost: 0
   };
   render() {
     return (
@@ -41,7 +41,7 @@ class ModalCreatePayment extends React.Component {
           />
           <FormLabel>Cost</FormLabel>
           <FormInput
-            value={this.state.cost}
+            value={this.state.cost.toString()}
             onChangeText={text => {
               this.setState({ cost: text });
             }}
