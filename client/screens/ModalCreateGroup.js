@@ -91,14 +91,6 @@ class ModalCreateGroup extends React.Component {
                         }
                       });
                       this.setState({ name: "", email: "", emails: [] });
-                      console.log(this.props.navigation.state.params);
-                      console.log(
-                        "--------------------------------Before---------------------------------"
-                      );
-                      this.props.navigation.state.params.rerender();
-                      console.log(
-                        "--------------------------------After---------------------------------"
-                      );
                       this.props.navigation.goBack();
                     } catch (e) {
                       console.log(e);

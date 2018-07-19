@@ -29,6 +29,16 @@ export default class GroupsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.updateGroups = this.updateGroups.bind(this);
+    this.props.navigation.setParams({
+      rerender: "TEST"
+    });
+  }
+
+  componentDidMount() {
+    console.log("MOUNTING");
+    this.props.navigation.setParams({
+      rerender: "TEST"
+    });
   }
 
   updateGroups() {
@@ -43,9 +53,7 @@ export default class GroupsScreen extends React.Component {
         <TouchableOpacity
           onPress={() => {
             // this.testFunction();
-            navigation.navigate("ModalCreateGroup", {
-              rerender: "TODO"
-            });
+            navigation.navigate("ModalCreateGroup");
           }}
         >
           <EvilIcons name="plus" size={32} />
@@ -68,7 +76,7 @@ export default class GroupsScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Query query={GET_GROUPS}>
+        <Query query={GET_GROUPS} pollInterval={300}>
           {({ loading, error, data, refetch }) => {
             if (loading) return <Text>"loading..."</Text>;
             if (error) {
