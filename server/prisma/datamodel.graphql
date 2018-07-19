@@ -10,3 +10,9 @@ type Group {
   name: String!
   members: [User!]!
 }
+
+type Payment {
+  id: ID! @unique
+  name: String!
+  cost: Float!
+}

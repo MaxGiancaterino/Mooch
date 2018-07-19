@@ -19,15 +19,19 @@ export default User;
 
 const styles = StyleSheet.create({
   userContainer: {
-    backgroundColor: "#5B0000",
+    // backgroundColor: "#5B0000",
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     margin: 10,
-    width: 200
+    width: 200,
+    borderWidth: 3,
+    borderStyle: "solid",
+    borderColor: "#5B0000"
   },
   userText: {
-    color: "white",
-    fontSize: 24
+    color: "#5B0000",
+    fontSize: 24,
+    fontFamily: "Futura"
   }
 });
