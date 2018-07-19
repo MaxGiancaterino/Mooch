@@ -32,14 +32,6 @@ export default class ViewGroupsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Groups",
-      headerRight: (
-        <TouchableOpacity
-          style={styles.addPaymentButton}
-          onPress={() => navigation.navigate("ModalCreatePayment")}
-        >
-          <EvilIcons name="plus" size={32} />
-        </TouchableOpacity>
-      ),
       tabBarLabel: "Groups",
       tabBarIcon: ({ focused }) => (
         <TabBarIcon
@@ -58,6 +50,15 @@ export default class ViewGroupsScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.membersText}>Members</Text>
+        <View style={styles.addPaymentWrapper}>
+          <TouchableOpacity
+            style={styles.addPaymentButton}
+            onPress={() => navigation.navigate("ModalCreatePayment")}
+          >
+            <EvilIcons name="plus" size={32} />
+            <Text>Payment</Text>
+          </TouchableOpacity>
+        </View>
         <ScrollView>
           <Query
             variables={{
@@ -88,8 +89,6 @@ export default class ViewGroupsScreen extends React.Component {
   }
 }
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -101,8 +100,16 @@ const styles = StyleSheet.create({
     margin: 10,
     flexWrap: "wrap"
   },
+  addPaymentWrapper: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20
+  },
   addPaymentButton: {
-    marginRight: 10
+    marginRight: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row"
   },
   loadingText: {
     fontSize: 28,
@@ -110,7 +117,7 @@ const styles = StyleSheet.create({
   },
   membersText: {
     fontSize: 42,
-    marginBottom: 20,
+    marginBottom: 10,
     marginTop: 20,
     fontFamily: "AvenirNext-Medium"
   }
