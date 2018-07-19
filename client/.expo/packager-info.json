@@ -1,1 +1,8 @@
-{}
+{
+  "expoServerPort": 19000,
+  "packagerPort": 19002,
+  "packagerPid": 16773,
+  "expoServerNgrokUrl": "https://r4-x34.hkim00.client.exp.direct",
+  "packagerNgrokUrl": "https://packager.bs-7ah.hkim00.client.exp.direct",
+  "ngrokPid": 16795
+}

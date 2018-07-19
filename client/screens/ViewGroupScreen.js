@@ -10,6 +10,7 @@ import {
   AsyncStorage,
   View
 } from "react-native";
+
 import User from "../components/User";
 
 import { EvilIcons } from "@expo/vector-icons";
@@ -53,7 +54,7 @@ export default class ViewGroupsScreen extends React.Component {
         <View style={styles.addPaymentWrapper}>
           <TouchableOpacity
             style={styles.addPaymentButton}
-            onPress={() => navigation.navigate("ModalCreatePayment")}
+            onPress={() => this.props.navigation.navigate("ModalCreatePayment")}
           >
             <EvilIcons name="plus" size={32} />
             <Text>Payment</Text>
