@@ -44,12 +44,8 @@ const GroupsStack = createStackNavigator({
   Group: GroupNavigator
 });
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
-});
-
-LinksStack.navigationOptions = {
-  tabBarLabel: "Links",
+GroupsStack.navigationOptions = {
+  tabBarLabel: "Groups",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}

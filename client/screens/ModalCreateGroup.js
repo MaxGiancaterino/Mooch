@@ -117,53 +117,51 @@ class ModalCreateGroup extends React.Component {
             {this.state.names.map(name => <User name={name} />)}
           </View>
         </ScrollView>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            marginBottom: 50
-          }}
-        >
-          <Mutation mutation={CREATE_GROUP}>
-            {createGroup => {
-              return (
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={async () => {
-                    try {
-                      const myEmail = await AsyncStorage.getItem("email");
-                      console.log("MY EMAIL: " + myEmail);
-                      const { data } = await createGroup({
-                        variables: {
-                          data: {
-                            name: this.state.name,
-                            members: {
-                              connect: [
-                                ...this.state.emails,
-                                { email: myEmail }
-                              ]
+        <View style={styles.bottomButtonOuterWrapper}>
+          <View style={styles.bottomButtonWrapper}>
+            <Mutation mutation={CREATE_GROUP}>
+              {createGroup => {
+                return (
+                  <View>
+                    <TouchableOpacity
+                      style={styles.addGroupButton}
+                      onPress={async () => {
+                        try {
+                          const myEmail = await AsyncStorage.getItem("email");
+                          console.log("MY EMAIL: " + myEmail);
+                          const { data } = await createGroup({
+                            variables: {
+                              data: {
+                                name: this.state.name,
+                                members: {
+                                  connect: [
+                                    ...this.state.emails,
+                                    { email: myEmail }
+                                  ]
+                                }
+                              }
                             }
-                          }
+                          });
+                          this.setState({ name: "", email: "", emails: [] });
+                          this.props.navigation.goBack();
+                        } catch (e) {
+                          console.log(e);
                         }
-                      });
-                      this.setState({ name: "", email: "", emails: [] });
-                      this.props.navigation.goBack();
-                    } catch (e) {
-                      console.log(e);
-                    }
-                  }}
-                >
-                  <Text>Add group!</Text>
-                </TouchableOpacity>
-              );
-            }}
-          </Mutation>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.goBack()}
-          >
-            <Text>Go back!</Text>
-          </TouchableOpacity>
+                      }}
+                    >
+                      <Text style={styles.addGroupText}>Add group!</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}
+            </Mutation>
+            <TouchableOpacity
+              style={styles.goBackButton}
+              onPress={() => this.props.navigation.goBack()}
+            >
+              <Text>Go back</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -173,9 +171,34 @@ class ModalCreateGroup extends React.Component {
 export default ModalCreateGroup;
 
 const styles = StyleSheet.create({
-  button: {
-    padding: 20,
-    marginRight: 30,
-    borderWidth: 1
+  goBackButton: {
+    padding: 15,
+    margin: "auto",
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 15
+  },
+  addGroupButton: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    margin: "auto",
+    backgroundColor: "#5B0000",
+    borderRadius: 15
+  },
+  addGroupText: {
+    color: "white"
+  },
+  bottomButtonWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 50,
+    width: "60%"
+  },
+  bottomButtonOuterWrapper: {
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
