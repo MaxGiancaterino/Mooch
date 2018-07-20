@@ -24,7 +24,6 @@ const GET_MEMBERS = gql`
       members {
         id
         name
-        mooches
       }
     }
   }
