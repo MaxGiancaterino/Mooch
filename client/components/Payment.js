@@ -15,6 +15,9 @@ class Payment extends React.Component {
     //console.log("WILL MOUNT");
     this.calculateDebt(this.props.debts);
   }
+  componentDidUpdate() {
+    this.calculateDebt(this.props.debts);
+  }
   state = {
     debt: 0
   };
