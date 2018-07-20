@@ -34,7 +34,9 @@ class Payment extends React.Component {
       }
     });
     console.log("RETURNED: " + totalDebt);
-    await this.setState({ debt: totalDebt });
+    if (this.state.debt !== totalDebt) {
+      await this.setState({ debt: totalDebt });
+    }
   }
   render() {
     return (

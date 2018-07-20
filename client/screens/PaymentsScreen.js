@@ -46,13 +46,6 @@ const GET_PAYMENTS = gql`
 `;
 
 export default class PaymentsScreen extends React.Component {
-  componentDidMount() {
-    console.log("MOUNTING");
-    this.props.navigation.setParams({
-      rerender: "TEST"
-    });
-  }
-
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Payments",
