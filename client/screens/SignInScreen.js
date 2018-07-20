@@ -22,6 +22,7 @@ const LOGIN = gql`
       user {
         id
         email
+        name
       }
     }
   }
@@ -103,6 +104,8 @@ export default class SignInScreen extends React.Component {
       console.log(data.login.token);
       await AsyncStorage.setItem("token", data.login.token);
       await AsyncStorage.setItem("email", data.login.user.email);
+      console.log(data.login.user.name);
+      await AsyncStorage.setItem("name", data.login.user.name);
       this.props.navigation.navigate("App");
     } catch (e) {
       console.log(e);

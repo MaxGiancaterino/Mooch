@@ -19,7 +19,16 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Welcome to Mooch"
   };
-
+  state = {
+    name: "Not signed in"
+  };
+  componentWillMount() {
+    this.getName();
+  }
+  async getName() {
+    const name = await AsyncStorage.getItem("name");
+    this.setState({ name });
+  }
   _signOutAsync = async () => {
     await AsyncStorage.clear();
     this.props.navigation.navigate("Auth");
@@ -33,6 +42,7 @@ export default class HomeScreen extends React.Component {
             <View style={styles.moochContainer}>
               <Text style={styles.moochText}> Mooch </Text>
             </View>
+            <Text style={styles.helloText}>Hello, {this.state.name}</Text>
           </View>
           <TouchableOpacity
             style={styles.signoutButton}
@@ -60,7 +70,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderColor: "white",
     width: "100%",
-    marginTop: 200,
+    marginTop: 150,
     marginBottom: 150
   },
   moochContainerWrapper: {
@@ -71,6 +81,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 40,
     fontFamily: "Futura"
+  },
+  helloText: {
+    color: "white",
+    fontFamily: "Futura",
+    fontSize: 28,
+    marginBottom: 80
   },
   signoutButton: {
     borderRadius: 15,
