@@ -48,7 +48,7 @@ class ModalCreatePayment extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1, marginTop: 50 }}>
+        <ScrollView style={{ flex: 1, marginTop: 80 }}>
           <FormLabel>Name of payment</FormLabel>
           <FormInput
             value={this.state.name}
@@ -64,57 +64,55 @@ class ModalCreatePayment extends React.Component {
             }}
           />
         </ScrollView>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            marginBottom: 50
-          }}
-        >
-          <Mutation mutation={UPDATE_GROUP}>
-            {updateGroup => {
-              return (
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={async () => {
-                    try {
-                      const email = await AsyncStorage.getItem("email");
-                      const { data } = await updateGroup({
-                        variables: {
-                          data: {
-                            payments: {
-                              create: [
-                                {
-                                  name: this.state.name,
-                                  cost: this.state.cost,
-                                  payer: {
-                                    connect: { email }
+        <View style={styles.bottomButtonOuterWrapper}>
+          <View style={styles.bottomButtonWrapper}>
+            <Mutation mutation={UPDATE_GROUP}>
+              {updateGroup => {
+                return (
+                  <TouchableOpacity
+                    style={styles.addPaymentButton}
+                    onPress={async () => {
+                      try {
+                        const email = await AsyncStorage.getItem("email");
+                        const { data } = await updateGroup({
+                          variables: {
+                            data: {
+                              payments: {
+                                create: [
+                                  {
+                                    name: this.state.name,
+                                    cost: this.state.cost,
+                                    payer: {
+                                      connect: { email }
+                                    }
                                   }
-                                }
-                              ]
+                                ]
+                              }
+                            },
+                            where: {
+                              id: this.props.navigation.state.params.id
                             }
-                          },
-                          where: { id: this.props.navigation.state.params.id }
-                        }
-                      });
-                      this.setState({ name: "", cost: 0 });
-                      this.props.navigation.goBack();
-                    } catch (e) {
-                      console.log(e);
-                    }
-                  }}
-                >
-                  <Text>Add payment!</Text>
-                </TouchableOpacity>
-              );
-            }}
-          </Mutation>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.goBack()}
-          >
-            <Text>Go back!</Text>
-          </TouchableOpacity>
+                          }
+                        });
+                        this.setState({ name: "", cost: 0 });
+                        this.props.navigation.goBack();
+                      } catch (e) {
+                        console.log(e);
+                      }
+                    }}
+                  >
+                    <Text style={styles.addPaymentText}>Add payment!</Text>
+                  </TouchableOpacity>
+                );
+              }}
+            </Mutation>
+            <TouchableOpacity
+              style={styles.goBackButton}
+              onPress={() => this.props.navigation.goBack()}
+            >
+              <Text>Go back!</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -124,9 +122,34 @@ class ModalCreatePayment extends React.Component {
 export default ModalCreatePayment;
 
 const styles = StyleSheet.create({
-  button: {
-    padding: 20,
-    marginRight: 30,
-    borderWidth: 1
+  goBackButton: {
+    padding: 15,
+    margin: "auto",
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 15
+  },
+  addPaymentButton: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    margin: "auto",
+    backgroundColor: "#5B0000",
+    borderRadius: 15
+  },
+  addPaymentText: {
+    color: "white"
+  },
+  bottomButtonWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 50,
+    width: "60%"
+  },
+  bottomButtonOuterWrapper: {
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

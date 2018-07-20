@@ -45,7 +45,7 @@ class Payment extends React.Component {
         }
       >
         <View style={styles.group}>
-          <Text style={styles.groupText}>{this.props.name}</Text>
+          <Text style={styles.nameText}>{this.props.name}</Text>
           <Text style={styles.groupText}>Total: ${this.props.cost}</Text>
           <Text style={styles.groupText}>You owe: ${this.state.debt}</Text>
         </View>
@@ -66,9 +66,15 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   groupText: {
-    fontSize: 24,
+    fontSize: 14,
     fontFamily: "Futura",
     color: "white",
+    margin: 5
+  },
+  nameText: {
+    fontSize: 18,
+    fontFamily: "Futura",
+    color: "#FFB800",
     margin: 5
   }
 });

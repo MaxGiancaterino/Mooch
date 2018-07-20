@@ -172,20 +172,24 @@ export default ModalCreateGroup;
 
 const styles = StyleSheet.create({
   goBackButton: {
-    padding: 10,
+    padding: 15,
     margin: "auto",
     borderWidth: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    borderRadius: 15
   },
   addGroupButton: {
-    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
     margin: "auto",
-    backgroundColor: "#5B0000"
+    backgroundColor: "#5B0000",
+    borderRadius: 15
   },
   addGroupText: {
-    color: "white",
-    fontSize: 20
+    color: "white"
   },
   bottomButtonWrapper: {
     flexDirection: "row",
