@@ -13,6 +13,7 @@ type Query {
   ): [User!]!
   groups: [Group!]!
   group(where: GroupWhereUniqueInput!): Group!
+  payments(id: ID!): Group!
 }
 
 type Mutation {
@@ -20,6 +21,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   createGroup(data: GroupCreateInput!): Group!
   createPayment(data: PaymentCreateInput!): Payment!
+  updateGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
 }
 
 type AuthPayload {

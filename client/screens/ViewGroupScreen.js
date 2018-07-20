@@ -54,7 +54,11 @@ export default class ViewGroupsScreen extends React.Component {
         <View style={styles.addPaymentWrapper}>
           <TouchableOpacity
             style={styles.addPaymentButton}
-            onPress={() => this.props.navigation.navigate("ModalCreatePayment")}
+            onPress={() =>
+              this.props.navigation.navigate("ModalCreatePayment", {
+                id: this.props.navigation.state.params.id
+              })
+            }
           >
             <EvilIcons name="plus" size={32} />
             <Text>Payment</Text>

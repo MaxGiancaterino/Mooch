@@ -11,17 +11,22 @@ import {
   View
 } from "react-native";
 
-import Group from "../components/Group";
+import Payment from "../components/Payment";
 
 import { EvilIcons } from "@expo/vector-icons";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
-const GET_GROUPS = gql`
-  query groups {
-    groups {
+const GET_PAYMENTS = gql`
+  query payments($id: ID!) {
+    payments(id: $id) {
       id
       name
+      payments {
+        name
+        id
+        cost
+      }
     }
   }
 `;
@@ -63,7 +68,28 @@ export default class PaymentsScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <Text>Payments Page</Text>
+          <View style={styles.groupsViewWrapper}>
+            <Query
+              query={GET_PAYMENTS}
+              pollInterval={300}
+              variables={{ id: this.props.navigation.state.params.id }}
+            >
+              {({ loading, error, data }) => {
+                if (loading)
+                  return <Text style={styles.loadingText}>Loading...</Text>;
+                if (error) {
+                  console.log(error);
+                  return <Text>"oops"</Text>;
+                }
+                if (!data) return <Text>"No data"</Text>;
+                if (!data.payments) return <Text>No payments</Text>;
+                console.log(data);
+                return data.payments.payments.map(payment => {
+                  return <Payment key={payment.id} name={payment.name} />;
+                });
+              }}
+            </Query>
+          </View>
         </ScrollView>
       </View>
     );

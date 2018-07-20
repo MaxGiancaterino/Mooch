@@ -23,6 +23,22 @@ const CREATE_PAYMENT = gql`
     }
   }
 `;
+
+const UPDATE_GROUP = gql`
+  mutation updateGroup(
+    $data: GroupUpdateInput!
+    $where: GroupWhereUniqueInput!
+  ) {
+    updateGroup(data: $data, where: $where) {
+      id
+      name
+      payments {
+        name
+      }
+    }
+  }
+`;
+
 class ModalCreatePayment extends React.Component {
   state = {
     name: "",
@@ -54,20 +70,26 @@ class ModalCreatePayment extends React.Component {
             marginBottom: 50
           }}
         >
-          <Mutation mutation={CREATE_PAYMENT}>
-            {createPayment => {
+          <Mutation mutation={UPDATE_GROUP}>
+            {updateGroup => {
               return (
                 <TouchableOpacity
                   style={styles.button}
                   onPress={async () => {
                     try {
-                      const { data } = await createPayment({
+                      const { data } = await updateGroup({
                         variables: {
                           data: {
-                            name: this.state.name,
-                            cost: this.state.cost,
-                            debts: []
-                          }
+                            payments: {
+                              create: [
+                                {
+                                  name: this.state.name,
+                                  cost: this.state.cost
+                                }
+                              ]
+                            }
+                          },
+                          where: { id: this.props.navigation.state.params.id }
                         }
                       });
                       this.setState({ name: "", cost: 0 });
