@@ -20,6 +20,7 @@ class Payment extends React.Component {
     this.calculateDebt(this.props.debts);
   }
   state = {
+    owed: 0,
     debt: 0,
     isPayer: false
   };
@@ -27,6 +28,7 @@ class Payment extends React.Component {
     //console.log(debts);
     const email = await AsyncStorage.getItem("email");
     //console.log("email: " + email);
+    let totalOwed = 0;
     let totalDebt = 0;
     debts.forEach(debt => {
       //console.log("debtor email: " + debt.debtor.email);
@@ -34,10 +36,16 @@ class Payment extends React.Component {
         totalDebt += debt.amount;
         //console.log("AMOUNT: " + debt.amount);
       }
+      if (debt.creditor.email === email) {
+        totalOwed += debt.amount;
+      }
     });
     console.log("RETURNED: " + totalDebt);
     if (this.state.debt !== totalDebt) {
       await this.setState({ debt: totalDebt });
+    }
+    if (this.state.owed !== totalOwed) {
+      await this.setState({ owed: totalOwed });
     }
   }
 
@@ -76,9 +84,10 @@ class Payment extends React.Component {
         <TouchableOpacity
           style={styles.container}
           onPress={() =>
-            this.props.navigation.push("ModalUpdatePayment", {
+            this.props.navigation.push("ModalResolvePayment", {
               paymentId: this.props.id,
-              payer: this.props.payer
+              payer: this.props.payer,
+              cost: this.state.owed
             })
           }
         >
@@ -86,7 +95,7 @@ class Payment extends React.Component {
             <Text style={styles.nameText}>{this.props.name}</Text>
             <Text style={styles.groupText}>Total: ${this.props.cost}</Text>
             <Text style={styles.groupText}>
-              You are owed {this.props.payer.name}: ${this.state.debt}
+              You are owed: ${this.state.owed}
             </Text>
           </View>
         </TouchableOpacity>

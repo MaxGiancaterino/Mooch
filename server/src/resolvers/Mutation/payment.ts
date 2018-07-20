@@ -7,9 +7,14 @@ export const payment = {
     return payment
   },
   async updatePayment(parent, args, ctx: Context, info) {
-    console.log(args)
+    //console.log(args)
     const payment = await ctx.db.mutation.updatePayment(args, info)
 
+    return payment
+  },
+  async deletePayment(parent, args, ctx: Context, info) {
+    //console.log(args)
+    const payment = await ctx.db.mutation.deletePayment(args, info)
     return payment
   }
 }

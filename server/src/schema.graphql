@@ -26,6 +26,7 @@ type Mutation {
     data: PaymentUpdateInput!
     where: PaymentWhereUniqueInput!
   ): Payment!
+  deletePayment(where: PaymentWhereUniqueInput!): Payment!
 }
 
 type AuthPayload {
