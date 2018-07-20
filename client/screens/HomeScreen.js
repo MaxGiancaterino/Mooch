@@ -11,7 +11,8 @@ import {
   View
 } from "react-native";
 import { WebBrowser } from "expo";
-
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 import { MonoText } from "../components/StyledText";
 
 export default class HomeScreen extends React.Component {
@@ -27,11 +28,15 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
-          <Button title="Sign out!" onPress={this._signOutAsync} />
+        <ScrollView contentContainerStyle={styles.contentContainer}>
+          <View style={styles.moochContainerWrapper}>
+            <View style={styles.moochContainer}>
+              <Text style={styles.moochText}> Mooch </Text>
+            </View>
+          </View>
+          <TouchableOpacity onPress={this._signOutAsync}>
+            <Text style={styles.signoutButtonText}> Sign out! </Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     );
@@ -41,7 +46,32 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#5B0000",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  moochContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 3,
+    borderStyle: "solid",
+    borderColor: "white",
+    width: "100%",
+    marginTop: 50
+  },
+  moochContainerWrapper: {
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  moochText: {
+    color: "white",
+    fontSize: 40,
+    fontFamily: "Futura"
+  },
+  signoutButtonText: {
+    color: "white",
+    marginTop: 350,
+    textAlign: "center"
   },
   developmentModeText: {
     marginBottom: 20,
@@ -57,13 +87,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     marginBottom: 20
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: "contain",
-    marginTop: 3,
-    marginLeft: -10
   },
   getStartedContainer: {
     alignItems: "center",
@@ -124,5 +147,10 @@ const styles = StyleSheet.create({
   helpLinkText: {
     fontSize: 14,
     color: "#2e78b7"
+  },
+  loadingText: {
+    marginTop: 50,
+    fontSize: 28,
+    fontFamily: "AvenirNext-Medium"
   }
 });
