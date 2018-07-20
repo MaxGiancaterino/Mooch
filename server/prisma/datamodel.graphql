@@ -17,6 +17,7 @@ type Payment {
   name: String!
   cost: Float!
   debts: [Debt!]!
+  payer: User!
 }
 
 type Debt {

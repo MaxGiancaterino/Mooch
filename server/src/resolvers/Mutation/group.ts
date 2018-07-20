@@ -5,5 +5,11 @@ export const group = {
     const group = await ctx.db.mutation.createGroup(args, info)
 
     return group
+  },
+  async updateGroup(parent, args, ctx: Context, info) {
+    console.log(args)
+    const group = await ctx.db.mutation.updateGroup(args, info)
+
+    return group
   }
 }

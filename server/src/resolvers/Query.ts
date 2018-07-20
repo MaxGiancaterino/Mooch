@@ -15,5 +15,8 @@ export default {
   },
   group: async (parent, args, ctx: Context, info) => {
     return await ctx.db.query.group(args, info)
+  },
+  payments: async (parent, args, ctx: Context, info) => {
+    return await ctx.db.query.group({ where: { id: args.id } }, info)
   }
 }

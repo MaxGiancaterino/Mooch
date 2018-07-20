@@ -15,9 +15,12 @@ import {
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
-const CREATE_PAYMENT = gql`
-  mutation createPayment($data: PaymentCreateInput!) {
-    createPayment(data: $data) {
+const UPDATE_PAYMENT = gql`
+  mutation updatePayment(
+    $data: PaymentUpdateInput!
+    $where: PaymentWhereUniqueInput!
+  ) {
+    updatePayment(data: $data, where: $where) {
       id
       name
       cost
@@ -25,38 +28,15 @@ const CREATE_PAYMENT = gql`
   }
 `;
 
-const UPDATE_GROUP = gql`
-  mutation updateGroup(
-    $data: GroupUpdateInput!
-    $where: GroupWhereUniqueInput!
-  ) {
-    updateGroup(data: $data, where: $where) {
-      id
-      name
-      payments {
-        name
-      }
-    }
-  }
-`;
-
-class ModalCreatePayment extends React.Component {
+class ModalUpdatePayment extends React.Component {
   state = {
-    name: "",
     cost: 0
   };
   render() {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1, marginTop: 50 }}>
-          <FormLabel>Name of payment</FormLabel>
-          <FormInput
-            value={this.state.name}
-            onChangeText={text => {
-              this.setState({ name: text });
-            }}
-          />
-          <FormLabel>Cost</FormLabel>
+          <FormLabel>Amount in debt</FormLabel>
           <FormInput
             value={this.state.cost.toString()}
             onChangeText={text => {
@@ -71,30 +51,39 @@ class ModalCreatePayment extends React.Component {
             marginBottom: 50
           }}
         >
-          <Mutation mutation={UPDATE_GROUP}>
-            {updateGroup => {
+          <Mutation mutation={UPDATE_PAYMENT}>
+            {updatePayment => {
               return (
                 <TouchableOpacity
                   style={styles.button}
                   onPress={async () => {
                     try {
                       const email = await AsyncStorage.getItem("email");
-                      const { data } = await updateGroup({
+                      const { data } = await updatePayment({
                         variables: {
                           data: {
-                            payments: {
+                            debts: {
                               create: [
                                 {
-                                  name: this.state.name,
-                                  cost: this.state.cost,
-                                  payer: {
-                                    connect: { email }
+                                  amount: this.state.cost,
+                                  debtor: {
+                                    connect: {
+                                      email
+                                    }
+                                  },
+                                  creditor: {
+                                    connect: {
+                                      email: this.props.navigation.state.params
+                                        .payer.email
+                                    }
                                   }
                                 }
                               ]
                             }
                           },
-                          where: { id: this.props.navigation.state.params.id }
+                          where: {
+                            id: this.props.navigation.state.params.paymentId
+                          }
                         }
                       });
                       this.setState({ name: "", cost: 0 });
@@ -104,7 +93,7 @@ class ModalCreatePayment extends React.Component {
                     }
                   }}
                 >
-                  <Text>Add payment!</Text>
+                  <Text>Declare Debt</Text>
                 </TouchableOpacity>
               );
             }}
@@ -121,7 +110,7 @@ class ModalCreatePayment extends React.Component {
   }
 }
 
-export default ModalCreatePayment;
+export default ModalUpdatePayment;
 
 const styles = StyleSheet.create({
   button: {

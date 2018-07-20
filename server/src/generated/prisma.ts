@@ -568,6 +568,7 @@ type Payment implements Node {
   name: String!
   cost: Float!
   debts(where: DebtWhereInput, orderBy: DebtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Debt!]
+  payer(where: UserWhereInput): User!
 }
 
 """A connection to a list of items."""
@@ -584,6 +585,7 @@ input PaymentCreateInput {
   name: String!
   cost: Float!
   debts: DebtCreateManyInput
+  payer: UserCreateOneInput!
 }
 
 input PaymentCreateManyInput {
@@ -662,12 +664,14 @@ input PaymentUpdateDataInput {
   name: String
   cost: Float
   debts: DebtUpdateManyInput
+  payer: UserUpdateOneInput
 }
 
 input PaymentUpdateInput {
   name: String
   cost: Float
   debts: DebtUpdateManyInput
+  payer: UserUpdateOneInput
 }
 
 input PaymentUpdateManyInput {
@@ -804,6 +808,7 @@ input PaymentWhereInput {
   debts_every: DebtWhereInput
   debts_some: DebtWhereInput
   debts_none: DebtWhereInput
+  payer: UserWhereInput
   _MagicalBackRelation_GroupToPayment_every: GroupWhereInput
   _MagicalBackRelation_GroupToPayment_some: GroupWhereInput
   _MagicalBackRelation_GroupToPayment_none: GroupWhereInput
@@ -1164,6 +1169,9 @@ input UserWhereInput {
   _MagicalBackRelation_GroupToUser_every: GroupWhereInput
   _MagicalBackRelation_GroupToUser_some: GroupWhereInput
   _MagicalBackRelation_GroupToUser_none: GroupWhereInput
+  _MagicalBackRelation_PaymentToUser_every: PaymentWhereInput
+  _MagicalBackRelation_PaymentToUser_some: PaymentWhereInput
+  _MagicalBackRelation_PaymentToUser_none: PaymentWhereInput
   _MagicalBackRelation_DebtToCreditor_every: DebtWhereInput
   _MagicalBackRelation_DebtToCreditor_some: DebtWhereInput
   _MagicalBackRelation_DebtToCreditor_none: DebtWhereInput
@@ -1321,6 +1329,7 @@ export interface PaymentWhereInput {
   debts_every?: DebtWhereInput
   debts_some?: DebtWhereInput
   debts_none?: DebtWhereInput
+  payer?: UserWhereInput
   _MagicalBackRelation_GroupToPayment_every?: GroupWhereInput
   _MagicalBackRelation_GroupToPayment_some?: GroupWhereInput
   _MagicalBackRelation_GroupToPayment_none?: GroupWhereInput
@@ -1394,6 +1403,7 @@ export interface PaymentUpdateDataInput {
   name?: String
   cost?: Float
   debts?: DebtUpdateManyInput
+  payer?: UserUpdateOneInput
 }
 
 export interface GroupSubscriptionWhereInput {
@@ -1516,6 +1526,7 @@ export interface PaymentCreateInput {
   name: String
   cost: Float
   debts?: DebtCreateManyInput
+  payer: UserCreateOneInput
 }
 
 export interface DebtUpdateInput {
@@ -1561,6 +1572,7 @@ export interface PaymentUpdateInput {
   name?: String
   cost?: Float
   debts?: DebtUpdateManyInput
+  payer?: UserUpdateOneInput
 }
 
 export interface UserWhereUniqueInput {
@@ -1634,6 +1646,9 @@ export interface UserWhereInput {
   _MagicalBackRelation_GroupToUser_every?: GroupWhereInput
   _MagicalBackRelation_GroupToUser_some?: GroupWhereInput
   _MagicalBackRelation_GroupToUser_none?: GroupWhereInput
+  _MagicalBackRelation_PaymentToUser_every?: PaymentWhereInput
+  _MagicalBackRelation_PaymentToUser_some?: PaymentWhereInput
+  _MagicalBackRelation_PaymentToUser_none?: PaymentWhereInput
   _MagicalBackRelation_DebtToCreditor_every?: DebtWhereInput
   _MagicalBackRelation_DebtToCreditor_some?: DebtWhereInput
   _MagicalBackRelation_DebtToCreditor_none?: DebtWhereInput
@@ -1792,6 +1807,7 @@ export interface Payment extends Node {
   name: String
   cost: Float
   debts?: Debt[]
+  payer: User
 }
 
 export interface GroupPreviousValues {
