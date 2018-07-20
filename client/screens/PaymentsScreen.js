@@ -29,6 +29,17 @@ const GET_PAYMENTS = gql`
         payer {
           email
         }
+        debts {
+          creditor {
+            name
+            email
+          }
+          debtor {
+            name
+            email
+          }
+          amount
+        }
       }
     }
   }
@@ -88,6 +99,7 @@ export default class PaymentsScreen extends React.Component {
                       id={payment.id}
                       cost={payment.cost}
                       payer={payment.payer}
+                      debts={payment.debts}
                       navigation={this.props.navigation}
                     />
                   );
