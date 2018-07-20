@@ -22,6 +22,10 @@ type Mutation {
   createGroup(data: GroupCreateInput!): Group!
   createPayment(data: PaymentCreateInput!): Payment!
   updateGroup(data: GroupUpdateInput!, where: GroupWhereUniqueInput!): Group!
+  updatePayment(
+    data: PaymentUpdateInput!
+    where: PaymentWhereUniqueInput!
+  ): Payment!
 }
 
 type AuthPayload {

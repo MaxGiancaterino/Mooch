@@ -26,6 +26,9 @@ const GET_PAYMENTS = gql`
         name
         id
         cost
+        payer {
+          email
+        }
       }
     }
   }
@@ -42,14 +45,6 @@ export default class PaymentsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Payments",
-      headerRight: (
-        <TouchableOpacity
-          style={styles.addGroupButton}
-          onPress={() => navigation.navigate("ModalCreatePayment")}
-        >
-          <EvilIcons name="plus" size={32} />
-        </TouchableOpacity>
-      ),
       tabBarLabel: "Payments",
       tabBarIcon: ({ focused }) => (
         <TabBarIcon
@@ -75,6 +70,7 @@ export default class PaymentsScreen extends React.Component {
               variables={{ id: this.props.navigation.state.params.id }}
             >
               {({ loading, error, data }) => {
+                console.log("ID: " + this.props.navigation.state.params.id);
                 if (loading)
                   return <Text style={styles.loadingText}>Loading...</Text>;
                 if (error) {
@@ -89,7 +85,10 @@ export default class PaymentsScreen extends React.Component {
                     <Payment
                       key={payment.id}
                       name={payment.name}
+                      id={payment.id}
                       cost={payment.cost}
+                      payer={payment.payer}
+                      navigation={this.props.navigation}
                     />
                   );
                 });

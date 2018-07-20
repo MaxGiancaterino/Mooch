@@ -6,9 +6,11 @@ class Payment extends React.Component {
     return (
       <TouchableOpacity
         style={styles.container}
-        onPress={
-          () => console.log("PRESSED")
-          //this.props.navigation.push("Group", { id: this.props.id })
+        onPress={() =>
+          this.props.navigation.push("ModalUpdatePayment", {
+            paymentId: this.props.id,
+            payer: this.props.payer
+          })
         }
       >
         <View style={styles.group}>

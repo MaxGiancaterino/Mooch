@@ -77,10 +77,7 @@ export default class GroupsScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.groupsViewWrapper}>
-            <Query
-              query={GET_GROUPS}
-              // pollInterval={300}
-            >
+            <Query query={GET_GROUPS} pollInterval={300}>
               {({ loading, error, data }) => {
                 if (loading)
                   return <Text style={styles.loadingText}>Loading...</Text>;

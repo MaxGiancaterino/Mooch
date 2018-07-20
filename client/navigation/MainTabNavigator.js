@@ -14,6 +14,7 @@ import GroupsScreen from "../screens/GroupsScreen";
 import ViewGroupScreen from "../screens/ViewGroupScreen";
 import ModalCreateGroup from "../screens/ModalCreateGroup";
 import ModalCreatePayment from "../screens/ModalCreatePayment";
+import ModalUpdatePayment from "../screens/ModalUpdatePayment";
 import PaymentsScreen from "../screens/PaymentsScreen";
 
 const HomeStack = createStackNavigator({
@@ -94,6 +95,9 @@ const RootStack = createStackNavigator(
     },
     ModalCreatePayment: {
       screen: ModalCreatePayment
+    },
+    ModalUpdatePayment: {
+      screen: ModalUpdatePayment
     }
   },
   {

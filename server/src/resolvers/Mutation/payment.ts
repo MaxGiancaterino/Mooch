@@ -5,5 +5,11 @@ export const payment = {
     const payment = await ctx.db.mutation.createPayment(args, info)
 
     return payment
+  },
+  async updatePayment(parent, args, ctx: Context, info) {
+    console.log(args)
+    const payment = await ctx.db.mutation.updatePayment(args, info)
+
+    return payment
   }
 }
