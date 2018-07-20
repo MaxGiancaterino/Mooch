@@ -65,13 +65,7 @@ class ModalCreateGroup extends React.Component {
             {client => {
               return (
                 <TouchableOpacity
-                  style={{
-                    padding: 20,
-                    marginTop: 20,
-                    borderWidth: 1,
-                    width: 200,
-                    alignSelf: "center"
-                  }}
+                  style={styles.addMemberButton}
                   onPress={async () => {
                     this.setState({ error: "" });
                     try {
@@ -114,7 +108,7 @@ class ModalCreateGroup extends React.Component {
             }}
           </ApolloConsumer>
           <View style={{ alignItems: "center" }}>
-            {this.state.names.map(name => <User name={name} />)}
+            {this.state.names.map(name => <User key={name} name={name} />)}
           </View>
         </ScrollView>
         <View style={styles.bottomButtonOuterWrapper}>
@@ -171,6 +165,14 @@ class ModalCreateGroup extends React.Component {
 export default ModalCreateGroup;
 
 const styles = StyleSheet.create({
+  addMemberButton: {
+    padding: 20,
+    marginTop: 20,
+    marginBottom: 20,
+    borderWidth: 1,
+    width: 200,
+    alignSelf: "center"
+  },
   goBackButton: {
     padding: 15,
     margin: "auto",
