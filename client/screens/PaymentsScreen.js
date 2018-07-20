@@ -28,6 +28,7 @@ const GET_PAYMENTS = gql`
         cost
         payer {
           email
+          name
         }
         debts {
           creditor {

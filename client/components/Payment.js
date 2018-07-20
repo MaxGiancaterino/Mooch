@@ -14,23 +14,25 @@ class Payment extends React.Component {
   componentWillMount() {
     //console.log("WILL MOUNT");
     this.calculateDebt(this.props.debts);
+    this.isPayer();
   }
   componentDidUpdate() {
     this.calculateDebt(this.props.debts);
   }
   state = {
-    debt: 0
+    debt: 0,
+    isPayer: false
   };
   async calculateDebt(debts) {
-    console.log(debts);
+    //console.log(debts);
     const email = await AsyncStorage.getItem("email");
-    console.log("email: " + email);
+    //console.log("email: " + email);
     let totalDebt = 0;
     debts.forEach(debt => {
-      console.log("debtor email: " + debt.debtor.email);
+      //console.log("debtor email: " + debt.debtor.email);
       if (debt.debtor.email === email) {
         totalDebt += debt.amount;
-        console.log("AMOUNT: " + debt.amount);
+        //console.log("AMOUNT: " + debt.amount);
       }
     });
     console.log("RETURNED: " + totalDebt);
@@ -38,24 +40,58 @@ class Payment extends React.Component {
       await this.setState({ debt: totalDebt });
     }
   }
+
+  async isPayer() {
+    console.log();
+    const email = await AsyncStorage.getItem("email");
+    console.log("stored email: " + email);
+    console.log("payer email: " + this.props.payer.email);
+    const isPayer = email === this.props.payer.email;
+    this.setState({ isPayer });
+  }
   render() {
-    return (
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() =>
-          this.props.navigation.push("ModalUpdatePayment", {
-            paymentId: this.props.id,
-            payer: this.props.payer
-          })
-        }
-      >
-        <View style={styles.group}>
-          <Text style={styles.nameText}>{this.props.name}</Text>
-          <Text style={styles.groupText}>Total: ${this.props.cost}</Text>
-          <Text style={styles.groupText}>You owe: ${this.state.debt}</Text>
-        </View>
-      </TouchableOpacity>
-    );
+    console.log(this.state.isPayer);
+    if (!this.state.isPayer) {
+      return (
+        <TouchableOpacity
+          style={styles.container}
+          onPress={() =>
+            this.props.navigation.push("ModalUpdatePayment", {
+              paymentId: this.props.id,
+              payer: this.props.payer
+            })
+          }
+        >
+          <View style={styles.group}>
+            <Text style={styles.nameText}>{this.props.name}</Text>
+            <Text style={styles.groupText}>Total: ${this.props.cost}</Text>
+            <Text style={styles.groupText}>
+              You owe {this.props.payer.name}: ${this.state.debt}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <TouchableOpacity
+          style={styles.container}
+          onPress={() =>
+            this.props.navigation.push("ModalUpdatePayment", {
+              paymentId: this.props.id,
+              payer: this.props.payer
+            })
+          }
+        >
+          <View style={styles.group}>
+            <Text style={styles.nameText}>{this.props.name}</Text>
+            <Text style={styles.groupText}>Total: ${this.props.cost}</Text>
+            <Text style={styles.groupText}>
+              You are owed {this.props.payer.name}: ${this.state.debt}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
   }
 }
 

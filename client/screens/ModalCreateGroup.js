@@ -30,6 +30,7 @@ const USER = gql`
     users(where: $where) {
       email
       name
+      id
     }
   }
 `;
@@ -39,7 +40,7 @@ class ModalCreateGroup extends React.Component {
     name: "",
     email: "",
     emails: [],
-    names: [],
+    members: [],
     error: ""
   };
   render() {
@@ -93,7 +94,7 @@ class ModalCreateGroup extends React.Component {
                         });
                         console.log(data.users);
                         await this.setState({
-                          names: [...this.state.names, data.users[0].name]
+                          members: [...this.state.members, data.users[0]]
                         });
                         console.log(this.state.email);
                         console.log(this.state.emails);
@@ -114,7 +115,9 @@ class ModalCreateGroup extends React.Component {
             }}
           </ApolloConsumer>
           <View style={{ alignItems: "center" }}>
-            {this.state.names.map(name => <User name={name} />)}
+            {this.state.members.map(member => (
+              <User key={member.id} name={member.name} />
+            ))}
           </View>
         </ScrollView>
         <View style={styles.bottomButtonOuterWrapper}>
