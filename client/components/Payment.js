@@ -13,6 +13,7 @@ class Payment extends React.Component {
       >
         <View style={styles.group}>
           <Text style={styles.groupText}>{this.props.name}</Text>
+          <Text style={styles.groupText}>Total: ${this.props.cost}</Text>
         </View>
       </TouchableOpacity>
     );

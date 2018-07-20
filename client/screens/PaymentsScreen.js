@@ -85,7 +85,13 @@ export default class PaymentsScreen extends React.Component {
                 if (!data.payments) return <Text>No payments</Text>;
                 console.log(data);
                 return data.payments.payments.map(payment => {
-                  return <Payment key={payment.id} name={payment.name} />;
+                  return (
+                    <Payment
+                      key={payment.id}
+                      name={payment.name}
+                      cost={payment.cost}
+                    />
+                  );
                 });
               }}
             </Query>

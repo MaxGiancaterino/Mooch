@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage
 } from "react-native";
 import {
   FormLabel,
@@ -77,6 +78,7 @@ class ModalCreatePayment extends React.Component {
                   style={styles.button}
                   onPress={async () => {
                     try {
+                      const email = await AsyncStorage.getItem("email");
                       const { data } = await updateGroup({
                         variables: {
                           data: {
@@ -84,7 +86,10 @@ class ModalCreatePayment extends React.Component {
                               create: [
                                 {
                                   name: this.state.name,
-                                  cost: this.state.cost
+                                  cost: this.state.cost,
+                                  payer: {
+                                    connect: { email }
+                                  }
                                 }
                               ]
                             }
