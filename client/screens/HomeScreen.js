@@ -34,7 +34,10 @@ export default class HomeScreen extends React.Component {
               <Text style={styles.moochText}> Mooch </Text>
             </View>
           </View>
-          <TouchableOpacity onPress={this._signOutAsync}>
+          <TouchableOpacity
+            style={styles.signoutButton}
+            onPress={this._signOutAsync}
+          >
             <Text style={styles.signoutButtonText}> Sign out! </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -57,7 +60,8 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderColor: "white",
     width: "100%",
-    marginTop: 50
+    marginTop: 200,
+    marginBottom: 150
   },
   moochContainerWrapper: {
     justifyContent: "center",
@@ -68,10 +72,18 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: "Futura"
   },
+  signoutButton: {
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    paddingTop: 7.5,
+    paddingBottom: 7.5
+  },
   signoutButtonText: {
-    color: "white",
-    marginTop: 350,
-    textAlign: "center"
+    color: "#5B0000",
+    textAlign: "center",
+    fontSize: 18
   },
   developmentModeText: {
     marginBottom: 20,
